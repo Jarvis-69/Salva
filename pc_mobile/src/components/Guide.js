@@ -1,8 +1,7 @@
-import './guide.css'
 import React, { useState } from 'react';
-import iphone from '../images/iphone.png'
-import laptop from '../images/laptop.png'
-import computer from '../images/computer.png'
+import iphone from '../components/Assets/iphone.png'
+import laptop from '../components/Assets/laptop.png'
+import computer from '../components/Assets/computer.png'
 
 const questions = [
     {
