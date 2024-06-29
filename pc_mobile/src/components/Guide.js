@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import iphone from '../components/Assets/iphone.png'
-import laptop from '../components/Assets/laptop.png'
-import computer from '../components/Assets/computer.png'
+import iphone from '../components/Assets/iphone.png';
+import laptop from '../components/Assets/laptop.png';
+import computer from '../components/Assets/computer.png';
+// import desktopRecommendation from '../components/Assets/desktopRecommendation.png';
+// import laptopRecommendation from '../components/Assets/laptopRecommendation.png';
+import Product from './Product';
 
 const questions = [
     {
@@ -9,85 +12,102 @@ const questions = [
         question: "Quelle est votre niveau en informatique ?",
         reponses: [
             { texte: "Débutant", questionSuivante: 1 },
-            { texte: "Intermédiare", questionSuivante: 1 },
+            { texte: "Intermédiaire", questionSuivante: 1 },
             { texte: "Expert", questionSuivante: 2 },
         ],
     },
     {
         id: 1,
-      question: "Quel est votre type d/'utilisation ?",
-      reponses: [
-        { texte: "Chien", questionSuivante: 3 },
-        { texte: "Chat", questionSuivante: 4 },
-        // ... autres réponses possibles
-      ],
+        question: "Quel est votre type d'utilisation ?",
+        reponses: [
+            { texte: "Navigation web et bureautique", questionSuivante: 3 },
+            { texte: "Jeux et multimédia", questionSuivante: 3 },
+            { texte: "Travail professionnel", questionSuivante: 4 },
+        ],
     },
     {
-      id: 2,
-      question: "Quel est votre budget ?",
-      reponses: [
-        { texte: "Chien", questionSuivante: 3 },
-        { texte: "Chat", questionSuivante: 4 },
-        // ... autres réponses possibles
-      ],
-    },
-    {
-      id: 3,
-      question: "Quel est votre type d/'utilisation ?",
-      reponses: [
-        { texte: "Chien", questionSuivante: 3 },
-        { texte: "Chat", questionSuivante: 4 },
-        // ... autres réponses possibles
-      ],
+        id: 2,
+        question: "Quel est votre budget ?",
+        reponses: [
+            { texte: "Moins de 500€", questionSuivante: 3 },
+            { texte: "500€ à 1000€", questionSuivante: 3 },
+            { texte: "Plus de 1000€", questionSuivante: 4 },
+        ],
     },
 ];
 
-function Reponse({ texte, questionSuivante, handleResponse }) {
+const products = {
+    laptop: {
+        name: "Ordinateur Portable",
+        description: "Un ordinateur portable performant pour une utilisation quotidienne.",
+        // image: laptopRecommendation,
+        price: 799,
+    },
+    desktop: {
+        name: "Ordinateur Fixe",
+        description: "Un ordinateur fixe puissant pour les professionnels et les gamers.",
+        // image: desktopRecommendation,
+        price: 1200,
+    },
+};
+
+function Reponse({ texte, questionSuivante, recommendation, handleResponse }) {
     return (
-      <button onClick={() => handleResponse(questionSuivante)}>
-        {texte}
-      </button>
+        <button onClick={() => handleResponse(questionSuivante, recommendation)}>
+            {texte}
+        </button>
     );
 }
 
-function Guide () {
+function Guide() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
-    const [currentReponse, setCurrentReponse] = useState(null);
-  
-    const handleResponse = (questionSuivante) => {
-      setCurrentQuestion(questionSuivante);
-      setCurrentReponse(null); // Réinitialise la réponse actuelle
+    const [recommendation, setRecommendation] = useState(null);
+
+    const handleResponse = (questionSuivante, recommendation) => {
+        if (recommendation) {
+            setRecommendation(recommendation);
+        } else {
+            setCurrentQuestion(questionSuivante);
+        }
     };
 
-  return (
-    <div className="container">
-        <div className="guide">
-            {/* <h1>Mon niveau de connaissance en informatique</h1> */}
-            <div className="question">
-                <h1>{questions[currentQuestion].question}</h1>
+    return (
+        <div className="container">
+            <div className="guide">
+                {!recommendation ? (
+                    <>
+                        <div className="question">
+                            <h1>{questions[currentQuestion].question}</h1>
+                        </div>
+                        <div className="niveau">
+                            <img src={currentQuestion < 2 ? iphone : (currentQuestion === 2 ? laptop : computer)} alt="" />
+                            {questions[currentQuestion].reponses.map((reponse, index) => (
+                                <Reponse
+                                    key={index}
+                                    texte={reponse.texte}
+                                    questionSuivante={reponse.questionSuivante}
+                                    recommendation={reponse.recommendation}
+                                    handleResponse={handleResponse}
+                                />
+                            ))}
+                        </div>
+                    </>
+                ) : (
+                    <div className="recommendation">
+                        <Product
+                            name={products[recommendation].name}
+                            description={products[recommendation].description}
+                            image={products[recommendation].image}
+                            price={products[recommendation].price}
+                        />
+                        <button onClick={() => {
+                            setRecommendation(null);
+                            setCurrentQuestion(0);
+                        }}>Recommencer</button>
+                    </div>
+                )}
             </div>
-            <div className="niveau">
-                <img src={iphone} alt=""/>
-                {/* <h2>Débutant</h2> */}
-                {questions[currentQuestion].reponses.map((reponse, index) => (
-            <Reponse
-              key={index}
-              texte={reponse.texte}
-              questionSuivante={reponse.questionSuivante}
-              handleResponse={handleResponse}
-            />
-        ))}
-            </div>
-            {/* <div className="niveau">
-                <img src={laptop} alt=""/>
-                <h2>Intermédiaire</h2>
-            </div>
-            <div className="niveau">
-                <img src={computer} alt=""/>
-                <h2>Expert</h2>
-            </div> */}
         </div>
-    </div>
     );
 }
 

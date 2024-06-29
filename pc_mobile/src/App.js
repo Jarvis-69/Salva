@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import GuidePage from './pages/GuidePage';
+import PaymentPage from './pages/PaymentPage';
 import './App.css';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<HomePage addToCart={addToCart} />} />
           <Route path="/cart" element={<CartPage cartItems={cartItems} clearCart={clearCart} />} />
           <Route path="/guide" element={<GuidePage />} />
+          <Route path="/payment" component={PaymentPage} />
         </Routes>
         <Footer />
       </div>
