@@ -27,7 +27,7 @@ function App() {
           <Route path="/" element={<HomePage addToCart={addToCart} />} />
           <Route path="/cart" element={<CartPage cartItems={cartItems} clearCart={clearCart} />} />
           <Route path="/guide" element={<GuidePage />} />
-          <Route path="/payment" component={PaymentPage} />
+          <Route path="/payment" element={<PaymentPage />} />
         </Routes>
         <Footer />
       </div>

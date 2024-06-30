@@ -3,7 +3,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 
-const stripePromise = loadStripe('votre_clé_api_publique');
+const stripePromise = loadStripe('pk_test_51PX5aDRtG8HNwy34P4uKI8678dILG31MfRc4CYn3Gi4bKlHqcAwOveZ6wWX1nMElZbqkLpwoQykgz0vVd3LyAYSN00VmIkikQF');
 
 const CheckoutForm = ({ amount }) => {
   const stripe = useStripe();

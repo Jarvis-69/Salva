@@ -1,5 +1,5 @@
 const express = require('express');
-const stripe = require('stripe')('votre_clé_api_secrète'); // Remplacez par votre clé API secrète Stripe
+const stripe = require('stripe')('sk_test_51PX5aDRtG8HNwy34KfErCdrKzmNIgTTBUK7ycNG9uXnAi5E3yzyhWeLQnvti0lCcnVVAQwhuPbAhlflY687471Hj00cYMLZVPT'); // Remplacez par votre clé secrète Stripe
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -19,6 +19,7 @@ app.post('/create-payment-intent', async (req, res) => {
       clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
+    console.error('Error creating payment intent:', error);
     res.status(500).send({ error: error.message });
   }
 });
