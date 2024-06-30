@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Cart = ({ cartItems, clearCart }) => {
+export const calculateTotal = (cartItems = []) => {
+  return cartItems.reduce((acc, item) => acc + item.price, 0);
+};
 
+const Cart = ({ cartItems, clearCart }) => {
   return (
     <div>
       <h2>Panier</h2>
@@ -17,6 +20,7 @@ const Cart = ({ cartItems, clearCart }) => {
               </li>
             ))}
           </ul>
+          <p>Total: {calculateTotal(cartItems)}€</p>
           <button onClick={clearCart}>Vider le panier</button>
           <Link to="/payment">
             <button>Confirmer l'achat</button>
