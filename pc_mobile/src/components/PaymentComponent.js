@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51PX5aDRtG8HNwy34P4uKI8678dILG31MfRc4CYn3Gi4bKlHqcAwOveZ6wWX1nMElZbqkLpwoQykgz0vVd3LyAYSN00VmIkikQF');
 
-const CheckoutForm = ({ amount }) => {
+const CheckoutForm = ({ amount, onSuccess }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [loading, setLoading] = useState(false);
@@ -46,6 +46,7 @@ const CheckoutForm = ({ amount }) => {
         if (result.paymentIntent.status === 'succeeded') {
           setSuccess(true);
           setLoading(false);
+          onSuccess(paymentMethod);
         }
       }
     } catch (error) {
@@ -66,10 +67,10 @@ const CheckoutForm = ({ amount }) => {
   );
 };
 
-const PaymentComponent = ({ amount }) => {
+const PaymentComponent = ({ amount, onSuccess }) => {
   return (
     <Elements stripe={stripePromise}>
-      <CheckoutForm amount={amount} />
+      <CheckoutForm amount={amount} onSuccess={onSuccess} />
     </Elements>
   );
 };
