@@ -26,6 +26,7 @@ const Header = ({ cartItems }) => {
                 {cartItems.length}
               </span>
             )}
+            <p>Panier</p>
           </div>
         </Link>
       </nav>

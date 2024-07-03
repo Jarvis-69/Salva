@@ -18,15 +18,18 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 
   try {
+    console.log(`Creating payment intent for amount: ${amount}`);
     const paymentIntent = await stripeInstance.paymentIntents.create({
       amount: amount * 100,
       currency: 'eur',
     });
+    console.log(`Payment intent created successfully: ${paymentIntent.id}`);
 
     res.send({
       clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
+    console.error(`Error creating payment intent: ${error.message}`);
     res.status(500).send({ error: error.message });
   }
 });
