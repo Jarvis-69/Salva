@@ -5,6 +5,9 @@ const ConfirmationPage = () => {
   const location = useLocation();
   const { cartItems, paymentMethod } = location.state || {};
 
+  const billingDetails = paymentMethod?.billing_details || {};
+  const { address = {}, email, name, phone } = billingDetails;
+
   return (
     <div>
       <h2>Confirmation de Paiement</h2>
@@ -26,12 +29,20 @@ const ConfirmationPage = () => {
         <div>
           <p>Type de carte: {paymentMethod.card.brand}</p>
           <p>Numéro de carte: **** **** **** {paymentMethod.card.last4}</p>
-          <p>Date d'expiration: {paymentMethod.card.exp_month}/{paymentMethod.card.exp_year}</p>
-          {/* <p>Propriétaire: {paymentMethod.billing_details.name}</p> */}
         </div>
       ) : (
         <p>Aucun moyen de paiement spécifié</p>
       )}
+      <h3>Informations de Livraison :</h3>
+      <div>
+        <p>Nom: {name || 'N/A'}</p>
+        <p>Email: {email || 'N/A'}</p>
+        <p>Téléphone: {phone || 'N/A'}</p>
+        <p>Adresse: {address.line1 || 'N/A'}, {address.line2 || ''}</p>
+        <p>Ville: {address.city || 'N/A'}</p>
+        <p>Code Postal: {address.postal_code || 'N/A'}</p>
+        <p>Pays: {address.country || 'N/A'}</p>
+      </div>
     </div>
   );
 };
