@@ -1,11 +1,14 @@
 const express = require('express');
-const stripe = require('stripe')('sk_test_51PX5aDRtG8HNwy34KfErCdrKzmNIgTTBUK7ycNG9uXnAi5E3yzyhWeLQnvti0lCcnVVAQwhuPbAhlflY687471Hj00cYMLZVPT');
+const stripe = require('stripe');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
+const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
 app.post('/create-payment-intent', async (req, res) => {
   const { amount } = req.body;
@@ -15,7 +18,7 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 
   try {
-    const paymentIntent = await stripe.paymentIntents.create({
+    const paymentIntent = await stripeInstance.paymentIntents.create({
       amount: amount * 100,
       currency: 'eur',
     });

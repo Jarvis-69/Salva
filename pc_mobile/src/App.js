@@ -27,14 +27,8 @@ function App() {
           <Route path="/" element={<HomePage addToCart={addToCart} />} />
           <Route path="/cart" element={<CartPage cartItems={cartItems} clearCart={clearCart} />} />
           <Route path="/guide" element={<GuidePage />} />
-          <Route 
-            path="/payment" 
-            element={<PaymentPage cartItems={cartItems} clearCart={clearCart} setPaymentMethod={setPaymentMethod} />} 
-          />
-          <Route 
-            path="/confirmation" 
-            element={<ConfirmationPage cartItems={cartItems} paymentMethod={paymentMethod} />} 
-          />
+          <Route path="/payment" element={<PaymentPage cartItems={cartItems} clearCart={clearCart} setPaymentMethod={setPaymentMethod} />} />
+          <Route path="/confirmation" element={<ConfirmationPage cartItems={cartItems} paymentMethod={paymentMethod} />} />
         </Routes>
         <Footer />
       </div>
