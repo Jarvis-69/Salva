@@ -2,6 +2,7 @@ const express = require('express');
 const stripe = require('stripe');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const serverless = require('serverless-http');
 require('dotenv').config();
 
 const app = express();
@@ -10,7 +11,7 @@ app.use(cors());
 
 const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
-app.post('/create-payment-intent', async (req, res) => {
+app.post('/api/create-payment-intent', async (req, res) => {
   const { amount } = req.body;
 
   if (!amount) {
@@ -34,4 +35,5 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log('Server running on port 3001'));
+module.exports = app;
+module.exports.handler = serverless(app);
