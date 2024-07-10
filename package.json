@@ -1,6 +1,7 @@
 {
   "name": "salva",
   "version": "1.0.0",
+  "homepage": "https://salva-pc.vercel.app",
   "dependencies": {
     "@stripe/react-stripe-js": "^2.7.2",
     "@stripe/stripe-js": "^4.0.0",
