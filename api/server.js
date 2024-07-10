@@ -10,9 +10,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Vérifiez que la clé secrète de Stripe est correctement chargée
-console.log(`Stripe Secret Key: ${process.env.STRIPE_SECRET_KEY}`);
-
 const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
 app.post('/create-payment-intent', async (req, res) => {
@@ -38,6 +35,8 @@ app.post('/create-payment-intent', async (req, res) => {
     res.status(500).send({ error: error.message });
   }
 });
+
+app.listen(3001, () => console.log('Server running on port 3001'));
 
 module.exports = app;
 module.exports.handler = serverless(app);
