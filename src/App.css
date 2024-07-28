@@ -71,8 +71,47 @@ nav a:hover {
   color: white;
 }  */
 
+/* Styles de ProductList */
 .productlist {
   color : white;
+}
+
+/* Styles de Product */
+.product {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 100%; */
+  max-width: 600px;
+  /* margin: auto; */
+  margin : 0 5vw 0 5vw;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2.5rem;
+  /* background-color: #fff; */
+}
+
+.product_details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.product_pc {
+  width: 100%;
+  height: auto;
+  /* border-radius: 10px; */
+  margin-bottom: 10px;
+}
+
+.product_icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
 }
 
 /* Styles des boutons */
@@ -168,6 +207,11 @@ footer {
   .niveau img {
     width: 40px;
     height: 40px;
+  }
+
+  /* Styles de Product */
+  .product {
+    max-width: 400px;
   }
 
   .footer-content {
