@@ -2,7 +2,7 @@ import React from 'react';
 
 const Product = ({ product, addToCart }) => {
   return (
-    <div>
+    <div className='product'>
       <h3>{product.name}</h3>
       <img src={product.image} alt={product.name} />
         <p>{product.description}</p>
@@ -20,8 +20,8 @@ const products = [
 
 const ProductList = ({ addToCart }) => {
   return (
-    <div>
-      <h2>Produits</h2>
+    <div className='productlist'>
+      <h2>Nos PC</h2>
       <div>
       {products.map((product) => (
         <Product key={product.id} product={product} addToCart={addToCart} />
