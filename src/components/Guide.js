@@ -4,7 +4,7 @@ import laptop from '../components/Assets/laptop.png';
 import computer from '../components/Assets/computer.png';
 // import desktopRecommendation from '../components/Assets/desktopRecommendation.png';
 // import laptopRecommendation from '../components/Assets/laptopRecommendation.png';
-import Product from './Product';
+// import Product from './Product';
 
 const questions = [
     {
@@ -94,12 +94,12 @@ function Guide() {
                     </>
                 ) : (
                     <div className="recommendation">
-                        <Product
+                        {/* <Product
                             name={products[recommendation].name}
                             description={products[recommendation].description}
                             image={products[recommendation].image}
                             price={products[recommendation].price}
-                        />
+                        /> */}
                         <button onClick={() => {
                             setRecommendation(null);
                             setCurrentQuestion(0);
