@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import processor from './Assets/processor.png';
 import card from './Assets/card.png';
 import ram from './Assets/ram.png';
@@ -10,27 +10,29 @@ import pc3 from './Assets/pc3.png';
 const Product = ({ product, addToCart }) => {
   return (
     <div className='product'>
-      <h3>{product.name}</h3>
-      <img src={product.image} alt={product.name} className='product_pc'/>
-      <p>{product.description}</p>
-      <div className='product_details'>
-        <img src={processor} alt='processor' className='product_icon'/>
-        <p>{product.processor}</p>
+      <div className='product-mobile'>
+        <h3>{product.name}</h3>
+        <img src={product.image} alt={product.name} className='product_img'/>
+        <p className='product-mobile-p'>{product.description}</p>
+        <div className='product_details'>
+          <img src={processor} alt='processor' className='product_icon'/>
+          <p>{product.processor}</p>
+        </div>
+        <div className='product_details'>
+          <img src={card} alt='card' className='product_icon'/>
+          <p>{product.card}</p>
+        </div>
+        <div className='product_details'>
+          <img src={ram} alt='ram' className='product_icon'/>
+          <p>{product.ram}</p>
+        </div>
+        <div className='product_details'>
+          <img src={M2} alt='M2' className='product_icon'/>
+          <p>{product.M2}</p>
+        </div>
+        <p>Prix: {product.price}€</p>
+        <button onClick={() => addToCart(product)}>Ajouter au panier</button>
       </div>
-      <div className='product_details'>
-        <img src={card} alt='card' className='product_icon'/>
-        <p>{product.card}</p>
-      </div>
-      <div className='product_details'>
-        <img src={ram} alt='ram' className='product_icon'/>
-        <p>{product.ram}</p>
-      </div>
-      <div className='product_details'>
-        <img src={M2} alt='M2' className='product_icon'/>
-        <p>{product.M2}</p>
-      </div>
-      <p>Prix: {product.price}€</p>
-      <button onClick={() => addToCart(product)}>Ajouter au panier</button>
     </div>
   );
 };
@@ -42,16 +44,31 @@ const products = [
 ];
 
 const ProductList = ({ addToCart }) => {
+  const productListRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (productListRef.current) {
+      productListRef.current.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (productListRef.current) {
+      productListRef.current.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className='productlist'>
-      {/* <h2>Nos PC</h2> */}
-      <div>
-      {products.map((product) => (
-        <Product key={product.id} product={product} addToCart={addToCart} />
-      ))}
+    <div className='product-list-container'>
+      <button className='scroll-button left' onClick={scrollLeft}>←</button>
+      <div className='product-list' ref={productListRef}>
+        {products.map((product) => (
+          <Product key={product.id} product={product} addToCart={addToCart} />
+        ))}
+      </div>
+      <button className='scroll-button right' onClick={scrollRight}>→</button>
     </div>
-  </div>
-);
+  );
 };
 
 export default ProductList;
